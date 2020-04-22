@@ -1,0 +1,17 @@
+site_name: AWS Edge Services Workshops
+theme:
+    name: material
+    language: en
+    favicon: assets/images/favicon.ico
+    highlights: true
+    hljs_langauages:
+        - yaml
+        - javascript
+        - python
+        - htmlbars
+nav:
+    - Home: index.md
+    - CloudFront: cludfront.md
+    - Lambda@Edge: lambda@edge.md
+    - WAF: waf.md
+    - About: about.md
