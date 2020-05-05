@@ -1,8 +1,13 @@
-Edge Services Workshops
+# Edge Services Workshops
 
-- Cloudfront
-- Edge@Services
-- WAF
+Visit the website (https://edgeservices-workshops.builder-culture.com)[https://edgeservices-workshops.builder-culture.com/]
 
 
-Great!
+### Labs:
+
+- Amazon Cloudfront
+- AWS Edge@Services
+- Amazon S3 Transfer Acceleration
+- AWS WAF
+
+Let's build something great!

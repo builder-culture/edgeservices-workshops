@@ -8,7 +8,7 @@
     height="280"
     frameborder="0" 
     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-    src="https://www.youtube.com/embed/c_ZL3nOxEi8?autoplay=1&autoplay=1"
+    src="https://www.youtube.com/embed/c_ZL3nOxEi8?autoplay=0"
     allowfullscreen>
 </iframe>
 

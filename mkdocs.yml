@@ -39,8 +39,6 @@ theme:
         - python
         - htmlbars
 
-site_dir: '../site'
-
 nav:
     - Home: README.md
 
