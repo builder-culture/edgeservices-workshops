@@ -1,7 +1,5 @@
 ## Create application
 
-**Please complete Cloudfront module 1 in order to have the application running.**
-
 ### OWASP Top 10 vulnerability mitigation using AWS WAF
 
 In this section, you will use AWS WAF to mitigate a vulnerability caused by weak code on your server. The vulnerability is a Local File Inclusion (LFI) in the Broken Access Control category of OWASP Top 10 (A5 category in 2017 release). Let's suppose that this vulnerability was introduced recently by code a change, where your developer has added to your application the capability to show additional information about itself using info query string. 
@@ -80,9 +78,13 @@ Click Next in Create conditions
 In this section, you will implement a honeypot that catches and block bad bots using AWS WAF automation capabilities and other AWS services. In fact, you will create a honeypot endpoint using API Gateway and Lambda. This endpoint will be banned using Robot.txt. The _robots.txt_ file is a simple text file placed on your origin which tells webcrawlers like Googlebot if they should access a file or not. In general, bad bots will not honor robot.txt, and scrape the endpoint. When it happens, a Lambda function is triggered and used to block the bad bot IP in AWS WAF automatically.
 
 1.- Deploy the CloudFormation template referenced in the link 'Launch Solution for CloudFront' in this page
-https://docs.aws.amazon.com/solutions/latest/aws-waf-security-automations/deployment.html#step1. This template contains multiple automation capabilities, but you will only select the honey pot deployment (Active Bad Bot Protection).
+[https://docs.aws.amazon.com/solutions/latest/aws-waf-security-automations/deployment.html#step1](https://docs.aws.amazon.com/solutions/latest/aws-waf-security-automations/deployment.html#step1). This template contains multiple automation capabilities, but you will only select the honey pot deployment (Active Bad Bot Protection).
  
-![perimeter_honey_1](/assets/images/waf/perimeter_honeypot_1.png)
+![perimeter_honey_1a](/assets/images/waf/perimeter_honeypot_1a.png)
+
+<br/>
+
+![perimeter_honey_1b](/assets/images/waf/perimeter_honeypot_1b.png)
 
 2.- The deployment takes a couple of minutes to finish. When the status of the stack is CREAT_COMPLETE, check the output tab and note the URL of the honey pot as well as the name of the WAF Web ACL.
 
@@ -110,7 +112,7 @@ https://docs.aws.amazon.com/solutions/latest/aws-waf-security-automations/deploy
 
 ![perimeter_honey_7](/assets/images/waf/perimeter_honeypot_7.png)
 
-8.- Using your browser, trigger the honeypot using URL: https://[your cloudfront distribution domain]/honeypot. You will get the below message with your own IP.
+8.- Using your browser, trigger the honeypot using URL: ```https://[your cloudfront distribution domain]/honeypot```. You will get the below message with your own IP.
 
 ![perimeter_honey_8](/assets/images/waf/perimeter_honeypot_8.png)
 
@@ -126,6 +128,3 @@ https://docs.aws.amazon.com/solutions/latest/aws-waf-security-automations/deploy
 ## Conclusion
 
 In this Lab, you have learned how to mitigate quickly a vulnerability in your application code with AWS WAF, and how to use AWS WAF to automatically block bad behaving bots along with other AWS services like Amazon API Gateway and AWS Lambda. We highly recommend you to visit the Marketplace for AWS WAF Seller Manager rules in the WAS WAF console. You will see the different WAF rules that are provided by Security Seller to mitigate against bad bot, protect against OWASP TOP 10 vulnerabilities and virtual patching for popular CMS and web servers.
-
-
-

@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Nodejs webserver on EC2 & S3 bucket
+Resources:
+    SecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Allow Inbound HTTP traffic
+        SecurityGroupIngress:
+          - 
+            IpProtocol: "tcp"
+            FromPort: "80"
+            ToPort: "80"
+            CidrIp: "0.0.0.0/0"
+          - 
+            IpProtocol: "tcp"
+            FromPort: "80"
+            ToPort: "80"
+            CidrIpv6: "::/0"
+
+    Instance:
+      Type: AWS::EC2::Instance
+      Properties:
+        ImageId: ami-b70554c8
+        InstanceType: t2.micro
+        SecurityGroups: 
+          - Ref: SecurityGroup
+        UserData: IyEvYmluL2Jhc2gNCmN1cmwgLW8tIGh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9jcmVhdGlvbml4L252bS92MC4zMy44L2luc3RhbGwuc2ggfCBiYXNoDQouIC8ubnZtL252bS5zaA0KbnZtIGluc3RhbGwgLS1sdHMNCm5wbSBpbnN0YWxsIGV4cHJlc3MgLS1zYXZlDQppcHRhYmxlcyAtdCBuYXQgLUEgUFJFUk9VVElORyAtaSBldGgwIC1wIHRjcCAtLWRwb3J0IDgwIC1qIFJFRElSRUNUIC0tdG8tcG9ydCA4MDgwDQplY2hvIOKAnGF1dGhvciBpcyBhY2hyYWYgc291aywgdmVyc2lvbiAxLjDigJ0gPiBhYm91dA0KZWNobyDigJxsaWJyYXJ5MSwgbGlicmFyeTIsIGxpYnJhcnkzLCBwcm9qZWN0NOKAnSA+IGRlcGVuZGVuY3kNCmVjaG8gImNvbnN0IGV4cHJlc3MgPSByZXF1aXJlKCdleHByZXNzJykiID4+IGFwcC5qcw0KZWNobyAiY29uc3QgYXBwID0gZXhwcmVzcygpIiA+PiBhcHAuanMNCmVjaG8gImFwcC5nZXQoJy9hcGknLCBmdW5jdGlvbiAocmVxLCByZXMpIHsiID4+IGFwcC5qcw0KZWNobyAiICBjb25zb2xlLmxvZyhKU09OLnN0cmluZ2lmeShyZXEuaGVhZGVycykpIiA+PiBhcHAuanMNCmVjaG8gIiAgaWYgKHJlcS5xdWVyeS5pbmZvKSB7IiA+PiBhcHAuanMNCmVjaG8gIiAgICByZXF1aXJlKCdjaGlsZF9wcm9jZXNzJykuZXhlYygnY2F0ICcrIHJlcS5xdWVyeS5pbmZvLCIgPj4gYXBwLmpzDQplY2hvICIgICAgICBmdW5jdGlvbiAoZXJyLCBkYXRhKSB7IiA+PiBhcHAuanMNCmVjaG8gIiAgICAgICAgcmVzLnNlbmQobmV3IERhdGUoKS50b0lTT1N0cmluZygpICsgJ1xuJyArIEpTT04uc3RyaW5naWZ5KHJlcS5oZWFkZXJzKSsgJ1xuJytkYXRhKSIgPj4gYXBwLmpzDQplY2hvICIgICAgICB9KTsiID4+IGFwcC5qcw0KZWNobyAiICB9IGVsc2UgeyIgPj4gYXBwLmpzDQplY2hvICIgICAgcmVzLnNlbmQobmV3IERhdGUoKS50b0lTT1N0cmluZygpICsgJ1xuJyArIEpTT04uc3RyaW5naWZ5KHJlcS5oZWFkZXJzKSkiID4+IGFwcC5qcw0KZWNobyAiICB9IiA+PiBhcHAuanMNCmVjaG8gIn0pOyIgPj4gYXBwLmpzDQplY2hvICIiID4+IGFwcC5qcw0KZWNobyAiYXBwLmxpc3Rlbig4MDgwLCBmdW5jdGlvbiAoKSB7IiA+PiBhcHAuanMNCmVjaG8gIiAgY29uc29sZS5sb2coJ2FwaSBpcyB1cCcpIiA+PiBhcHAuanMNCmVjaG8gIn0pIiA+PiBhcHAuanMNCm5vZGUgYXBwLmpzID4gc3Rkb3V0LnR4dCAyPiBzdGRlcnIudHh0ICY=
+
+    S3Bucket:
+      Type: AWS::S3::Bucket
+
+Outputs:
+  BucketName:
+    Value: !Ref 'S3Bucket'
+    Description: Name of the S3 origin
+  EC2DNSName:
+    Description: The domain name of the EC2 origin
+    Value: !GetAtt Instance.PublicDnsName

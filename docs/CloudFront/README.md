@@ -9,7 +9,7 @@
     height="280"
     frameborder="0" 
     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-    src="https://www.youtube.com/embed/AT-nHW3_SVI?autoplay=1&autoplay=1"
+    src="https://www.youtube.com/embed/AT-nHW3_SVI?autoplay=1"
     allowfullscreen>
 </iframe>
 
