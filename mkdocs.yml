@@ -1,17 +1,77 @@
-site_name: AWS Edge Services Workshops
+site_name: AWS Edge Services Workshops (Labs)
+site_description: 'A collection of AWS Edge Services Workshops Labs'
+
+# Repository
+repo_name: 'builder-culture/edgeservices-workshops'
+repo_url: 'https://builder-culture/edgeservices-workshops'
+
+# Copyright
+copyright: '&copy; 2020, Amazon Web Services, Inc. or its affiliates. All rights reserved.'
+
+# Must use true for gh-deploy
+#use_directory_urls: true
+
+# Must use for /site builds
+# NOTE: will break gh-deploy
+#use_directory_urls: false
+plugins:
+    - search:
+        lang:
+            - en
+    #- minify:
+    #   minify_html: true
+markdown_extensions:
+    - admonition
+    - codehilite:
+        linenums: true
+
 theme:
     name: material
+    features:
+        - tabs
     language: en
     favicon: assets/images/favicon.ico
     highlights: true
     hljs_langauages:
+        - html
         - yaml
         - javascript
         - python
         - htmlbars
+
+site_dir: '../site'
+
 nav:
-    - Home: index.md
-    - CloudFront: cludfront.md
-    - Lambda@Edge: lambda@edge.md
-    - WAF: waf.md
+    - Home: README.md
+
+    - CloudFront:
+        - Overview: 'CloudFront/README.md'
+        - Accelerate your content:
+            - Lab Overview: 'CloudFront/Accelerate_your_content/README.md'
+            - Lab Guide: 'CloudFront/Accelerate_your_content/Lab_Guide.md'
+            - Troubleshooting: 'CloudFront/Accelerate_your_content/Troubleshooting.md'
+    
+    - Lambda@Edge:
+        - Overview: 'LambdaAtEdge/README.md'
+        - Generate content dynamically:
+            - Lab Overview: 'LambdaAtEdge/Generate_content_dynamically/README.md'
+            - Lab Guide: 'LambdaAtEdge/Generate_content_dynamically/Lab_Guide.md'
+            - Troubleshooting: 'LambdaAtEdge/Generate_content_dynamically/Troubleshooting.md'
+             
+    - S3 Transfer Acceleration:
+        - Overview: 'S3-TransferAcceleration/README.md'
+
+    - WAF:
+        - Overview: 'WAF/README.md'
+        - Perimeter protection:
+            - Lab Overview: 'WAF/Perimeter_protection/README.md'
+            - Lab Guide: 'WAF/Perimeter_protection/Lab_Guide.md'
+            - Troubleshooting: 'WAF/Perimeter_protection/Troubleshooting.md'
+    
+#    - Shield:
+#        - Overview: 'Shield/README.md'
+
+    - More AWS Resources:
+        - Entries: 'MoreResources/README.md'
+
     - About: about.md
