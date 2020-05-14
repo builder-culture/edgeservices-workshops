@@ -6,9 +6,9 @@ In this section, you will use AWS WAF to mitigate a vulnerability caused by weak
 
 1.- Test the api vulnerability in your browser. 
 
-*	```https://[your cloudfront distribution domain]/api``` : will give the same results as before.
-*	```https://[your cloudfront distribution domain]/api?info=about``` : will append to the response, the content of about file.
-*	```https://[your cloudfront distribution domain]/api?info=dependency;cat%20/etc/passwd``` : will append to the response, the content of dependency file and /etc/passwd. 
+*	```https://[your_cloudfront_distribution_domain]/api``` : will give the same results as before.
+*	```https://[your_cloudfront_distribution_domain]/api?info=about``` : will append to the response, the content of about file.
+*	```https://[your_cloudfront_distribution_domain]/api?info=dependency;cat%20/etc/passwd``` : will append to the response, the content of dependency file and /etc/passwd. 
 
 ![perimeter_create_1a](/assets/images/waf/perimeter_create_1a.png)
 
@@ -24,11 +24,11 @@ In this section, you will use AWS WAF to mitigate a vulnerability caused by weak
 
 ![perimeter_create_2b](/assets/images/waf/perimeter_create_2b.png)
 
-3.- create another filter in the same condition with the following filter.
+3.- Create another filter in the same condition with the following filter.
 
 ![perimeter_create_3](/assets/images/waf/perimeter_create_3.png)
 
-4.- Click on create to finalize a condition that detects / and ; characters in the info query string after decoding as url.
+4.- Click on **Create** to finalize a condition that detects ```"/"``` and ```";"``` characters in the info query string after decoding as url.
 
 ![perimeter_create_4](/assets/images/waf/perimeter_create_4.png)
 
@@ -48,7 +48,7 @@ In this section, you will use AWS WAF to mitigate a vulnerability caused by weak
 
 ![perimeter_create_6b](/assets/images/waf/perimeter_create_6b.png)
 
-Click Next in Create conditions 
+Click **Next** in _Create conditions_ 
  
 ![perimeter_create_6c](/assets/images/waf/perimeter_create_6c.png)
 
@@ -86,7 +86,7 @@ In this section, you will implement a honeypot that catches and block bad bots u
 
 ![perimeter_honey_1b](/assets/images/waf/perimeter_honeypot_1b.png)
 
-2.- The deployment takes a couple of minutes to finish. When the status of the stack is CREAT_COMPLETE, check the output tab and note the URL of the honey pot as well as the name of the WAF Web ACL.
+2.- The deployment takes a couple of minutes to finish. When the status of the stack is _CREAT_COMPLETE_, check the output tab and note the URL of the honey pot as well as the name of the WAF Web ACL.
 
 ![perimeter_honey_2a](/assets/images/waf/perimeter_honeypot_2a.png)
 
@@ -98,7 +98,7 @@ In this section, you will implement a honeypot that catches and block bad bots u
 
 ![perimeter_honey_3](/assets/images/waf/perimeter_honeypot_3.png)
 
-4.- Next create a new behaviour using this origin, and with /honeypot path pattern. Make sure to Customize Object Caching, and use Zero value in all TTLs.
+4.- Next create a new behaviour using this origin, and with _/honeypot_ path pattern. Make sure to Customize Object Caching, and use Zero value in all TTLs.
 
 ![perimeter_honey_4](/assets/images/waf/perimeter_honeypot_4.png)
 
@@ -106,17 +106,17 @@ In this section, you will implement a honeypot that catches and block bad bots u
 
 ![perimeter_honey_5](/assets/images/waf/perimeter_honeypot_5.png)
 
-6.- Normally, you need to modify the robots.txt file in the root of your website to explicitly disallow the honeypot link, as follows as described in solution documentation. For the sake of simplicity, you will skip this part.
+6.- Normally, you need to modify the _robots.txt_ file in the root of your website to explicitly disallow the honeypot link, as follows as described in solution documentation. For the sake of simplicity, you will skip this part.
 
 7.- Test your api URL, it should be working normally.
 
 ![perimeter_honey_7](/assets/images/waf/perimeter_honeypot_7.png)
 
-8.- Using your browser, trigger the honeypot using URL: ```https://[your cloudfront distribution domain]/honeypot```. You will get the below message with your own IP.
+8.- Using your browser, trigger the honeypot using URL: ```https://[your_cloudfront_distribution_domain]/honeypot```. You will get the below message with your own IP.
 
 ![perimeter_honey_8](/assets/images/waf/perimeter_honeypot_8.png)
 
-9.- Go to AWS WAF console, and check that your IP is automatically added in the BAD Bot set.
+9.- Go to AWS _WAF_ console, and check that your IP is automatically added in the BAD Bot set.
 
 ![perimeter_honey_9](/assets/images/waf/perimeter_honeypot_9.png)
 
