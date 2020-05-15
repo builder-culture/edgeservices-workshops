@@ -1,6 +1,6 @@
 site_name: AWS Edge Services Workshops (Labs)
 site_description: 'A collection of AWS Edge Services Labs that allow diferent workshops'
-site_url: 'http://edgeservices-workshops.builder-culture.com'
+site_url: 'https://edgeservices-workshops.builder-culture.com'
 
 # Repository
 repo_name: 'builder-culture/edgeservices-workshops'

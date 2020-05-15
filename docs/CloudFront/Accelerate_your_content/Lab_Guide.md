@@ -2,7 +2,7 @@
 
 In this section, you will create both S3 and EC2 origin using a provided CloudFormation template.
 
-1.- Go to _CloudFormation_ console in **US East (N. Virginia)** _us-east-1_ region; and then click  _**Create stack**_.
+1.- Go to _CloudFormation_ console in **US East (N. Virginia)** _us-east-1_ region; and then click  **Create stack**.
 
 ![accelerate_origin_1a](/assets/images/cloudfront/accelerate_origin_1a.png)
 
@@ -313,7 +313,7 @@ In this section, you will configure an origin group to provide rerouting during 
 
 ![accelerate_origingroup_1b](/assets/images/cloudfront/accelerate_origingroup_1b.png)  
 
-<br/>
+For _Bucket settings for Block Public Access_, uncheck **Block all public access**. Validate the configurations, check **I acknowledge...** and click **Create bucket.
 
 ![accelerate_origingroup_1c](/assets/images/cloudfront/accelerate_origingroup_1c.png) 
 
