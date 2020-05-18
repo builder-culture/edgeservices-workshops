@@ -21,12 +21,26 @@ plugins:
     - search:
         lang:
             - en
+            - es
+            - pt
     #- minify:
-    #   minify_html: true
+    #    minify_html: true
+
 markdown_extensions:
     - admonition
+    - footnotes
     - codehilite:
         linenums: true
+    - pymdownx.caret
+    - pymdownx.critic
+    - pymdownx.details
+    - pymdownx.inlinehilite
+    - pymdownx.mark
+    - pymdownx.smartsymbols
+    - pymdownx.tasklist:
+        custom_checkbox: true
+    - pymdownx.tabbed
+    - pymdownx.tilde
 
 theme:
     name: material
@@ -55,6 +69,7 @@ nav:
         - Accelerate your content:
             - Lab Overview: 'CloudFront/Accelerate_your_content/README.md'
             - Lab Guide: 'CloudFront/Accelerate_your_content/Lab_Guide.md'
+            - Go further: 'CloudFront/Accelerate_your_content/Lab_Bonus.md'
             - Troubleshooting: 'CloudFront/Accelerate_your_content/Troubleshooting.md'
     
     - Lambda@Edge:

@@ -4,6 +4,8 @@
 
 In this section, you will use AWS WAF to mitigate a vulnerability caused by weak code on your server. The vulnerability is a Local File Inclusion (LFI) in the Broken Access Control category of OWASP Top 10 (A5 category in 2017 release). Let's suppose that this vulnerability was introduced recently by code a change, where your developer has added to your application the capability to show additional information about itself using info query string. 
 
+<br/>
+
 1.- Test the api vulnerability in your browser. 
 
 *	```https://[your_cloudfront_distribution_domain]/api``` : will give the same results as before.
@@ -16,6 +18,8 @@ In this section, you will use AWS WAF to mitigate a vulnerability caused by weak
 
 ![perimeter_create_1b](/assets/images/waf/perimeter_create_1b.png)
 
+<br/>
+
 2.- While waiting for your developers to correct the code and enforce access control, you will mitigate the vulnerability using AWS WAF. Go to AWS WAF Console and create a new String match condition with the below filter settings.
 
 ![perimeter_create_2a](/assets/images/waf/perimeter_create_2a.png)
@@ -24,21 +28,29 @@ In this section, you will use AWS WAF to mitigate a vulnerability caused by weak
 
 ![perimeter_create_2b](/assets/images/waf/perimeter_create_2b.png)
 
+<br/>
+
 3.- Create another filter in the same condition with the following filter.
 
 ![perimeter_create_3](/assets/images/waf/perimeter_create_3.png)
+
+<br/>
 
 4.- Click on **Create** to finalize a condition that detects ```"/"``` and ```";"``` characters in the info query string after decoding as url.
 
 ![perimeter_create_4](/assets/images/waf/perimeter_create_4.png)
 
-5.- Create a new rule in AWS WAF console. Choose a regular rule and reference the previously created string matching condition.
+<br/>
+
+5.- Create a new rule in AWS _WAF_ console. Choose a regular rule and reference the previously created string matching condition.
 
 ![perimeter_create_5a](/assets/images/waf/perimeter_create_5a.png)
 
 <br/>
 
 ![perimeter_create_5b](/assets/images/waf/perimeter_create_5b.png)
+
+<br/>
 
 6.- Finally, create a new WebACL and associate it with your CloudFront distribution. In this WebACL, you will permit all requests unless they match the rule you have just created. Confirm, review and proceed with WebAcl Creation.
 
@@ -60,18 +72,25 @@ Click **Next** in _Create conditions_
 
 ![perimeter_create_6e](/assets/images/waf/perimeter_create_6e.png)
 
+<br/>
+
 7.- In a few seconds, the change will propgate to AWS WAF. Test again in your browser the attacker URL. You will be blocked (403 Forbidden), and the custom error page will be returned by CloudFront.
 
 ![perimeter_create_7](/assets/images/waf/perimeter_create_7.png)
+
+<br/>
 
 8.- Finally, go to your newly created WebACL in the AWS WAF console and check the sampled requests. It takes a couple of minutes to pop up on the console. You will see the details of the requests that were blocked by WAF.
 
 ![perimeter_create_8](/assets/images/waf/perimeter_create_8.png)
 
+<br/>
+
 9.- We suppose now that you have fixed the vulnerability, and you don't need the virtual patching any more. Go to CloudFront console and remove the AWS WAF Web ACL association.
 
 ![perimeter_create_9](/assets/images/waf/perimeter_create_9.png)
 
+<br/>
 
 ## Automation honeypot
 
@@ -86,7 +105,9 @@ In this section, you will implement a honeypot that catches and block bad bots u
 
 ![perimeter_honey_1b](/assets/images/waf/perimeter_honeypot_1b.png)
 
-2.- The deployment takes a couple of minutes to finish. When the status of the stack is _CREAT_COMPLETE_, check the output tab and note the URL of the honey pot as well as the name of the WAF Web ACL.
+<br/>
+
+2.- The deployment takes a couple of minutes to finish. When the status of the stack is _CREATE_COMPLETE_, check the output tab and note the URL of the honey pot as well as the name of the WAF Web ACL.
 
 ![perimeter_honey_2a](/assets/images/waf/perimeter_honeypot_2a.png)
 
@@ -94,37 +115,55 @@ In this section, you will implement a honeypot that catches and block bad bots u
 
 ![perimeter_honey_2b](/assets/images/waf/perimeter_honeypot_2b.png)
 
+<br/>
+
 3.- Go to CloudFront console and create a new origin in your previously created distribution. Use the honeypoint URL noted in the previous step. Make sure to select HTTPS as origin Protocol policy.
 
 ![perimeter_honey_3](/assets/images/waf/perimeter_honeypot_3.png)
+
+<br/>
 
 4.- Next create a new behaviour using this origin, and with _/honeypot_ path pattern. Make sure to Customize Object Caching, and use Zero value in all TTLs.
 
 ![perimeter_honey_4](/assets/images/waf/perimeter_honeypot_4.png)
 
+<br/>
+
 5.- Associate your distribution to the WAF Web ACL created by the CloudFormation template.
 
 ![perimeter_honey_5](/assets/images/waf/perimeter_honeypot_5.png)
 
+<br/>
+
 6.- Normally, you need to modify the _robots.txt_ file in the root of your website to explicitly disallow the honeypot link, as follows as described in solution documentation. For the sake of simplicity, you will skip this part.
+
+<br/>
 
 7.- Test your api URL, it should be working normally.
 
 ![perimeter_honey_7](/assets/images/waf/perimeter_honeypot_7.png)
 
+<br/>
+
 8.- Using your browser, trigger the honeypot using URL: ```https://[your_cloudfront_distribution_domain]/honeypot```. You will get the below message with your own IP.
 
 ![perimeter_honey_8](/assets/images/waf/perimeter_honeypot_8.png)
+
+<br/>
 
 9.- Go to AWS _WAF_ console, and check that your IP is automatically added in the BAD Bot set.
 
 ![perimeter_honey_9](/assets/images/waf/perimeter_honeypot_9.png)
 
+<br/>
+
 10.- Try to load your api URL again, you will be blocked and you will see the custom error page by CloudFront.
 
 ![perimeter_honey_10](/assets/images/waf/perimeter_honeypot_10.png)
 
+<br/>
 
 ## Conclusion
 
-In this Lab, you have learned how to mitigate quickly a vulnerability in your application code with AWS WAF, and how to use AWS WAF to automatically block bad behaving bots along with other AWS services like Amazon API Gateway and AWS Lambda. We highly recommend you to visit the Marketplace for AWS WAF Seller Manager rules in the WAS WAF console. You will see the different WAF rules that are provided by Security Seller to mitigate against bad bot, protect against OWASP TOP 10 vulnerabilities and virtual patching for popular CMS and web servers.
+!!! success
+    Congratulations! In this Lab, you have learned how to mitigate quickly a vulnerability in your application code with AWS WAF, and how to use AWS WAF to automatically block bad behaving bots along with other AWS services like Amazon API Gateway and AWS Lambda. We highly recommend you to visit the Marketplace for AWS WAF Seller Manager rules in the WAS WAF console. You will see the different WAF rules that are provided by Security Seller to mitigate against bad bot, protect against OWASP TOP 10 vulnerabilities and virtual patching for popular CMS and web servers.
