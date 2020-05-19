@@ -169,7 +169,7 @@ In this section, you will implement a honeypot that catches and block bad bots u
 
 <br/>
 
-8.- Using your browser, trigger the honeypot using URL: ```https://[your_cloudfront_distribution_domain]/honeypot```. You will get the below message with your own IP.
+8.- Using your browser, trigger the honeypot using URL: `https://[your_distribution_domain_name]/honeypot`. You will get the below message with your own IP.
 
 ![perimeter_honey_8](/assets/images/waf/perimeter_honeypot_8.png)
 

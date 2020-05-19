@@ -50,7 +50,7 @@ Then select **Author from scratch** and configure the following
 Expand _Choose or create and execution role_ an configure:
 
 *	Role : **Create new role from AWS policy templates**
-*	Role name : ```lambda_edge_execution_role```
+*	Role name : `lambda_edge_execution_role`
 *	Policy templates: **Basic Lambda@Edge permissions (for CloudFront trigger)**
  
 Then click on **Create function** button.
