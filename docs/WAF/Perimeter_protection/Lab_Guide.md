@@ -6,21 +6,40 @@ In this section, you will use AWS WAF to mitigate a vulnerability caused by weak
 
 <br/>
 
-1.- Test the api vulnerability in your browser. 
+### Test the api vulnerability in your browser:
 
-*	```https://[your_cloudfront_distribution_domain]/api``` : will give the same results as before.
-*	```https://[your_cloudfront_distribution_domain]/api?info=about``` : will append to the response, the content of about file.
-*	```https://[your_cloudfront_distribution_domain]/api?info=dependency;cat%20/etc/passwd``` : will append to the response, the content of dependency file and /etc/passwd. 
+* `https://[your_distribution_domain_name]/api` : will give the same results as before. Nothing new here.
+  
+<br/>
+
+* `https://[your_distribution_domain_name]/api?info=about` : will append to the response, the content of `about` file.
+
+![perimeter_create_1a](/assets/images/waf/perimeter_create_0a.png)
+
+<br/>
+
+* `https://[your_distribution_domain_name]/api?info=dependency;cat%20/etc/passwd` : will append to the response, the content of `dependency` file and `/etc/passwd`. 
+
+![perimeter_create_1b](/assets/images/waf/perimeter_create_0b.png)
+
+<br/>
+
+1.- While waiting for your developers to correct the code and enforce access control, you will mitigate the vulnerability using AWS WAF. Lets go.
+
+Go to AWS WAF Console
 
 ![perimeter_create_1a](/assets/images/waf/perimeter_create_1a.png)
 
 <br/>
 
+Using the left menu option **Stwich to AWS WAF Classic**.
+
 ![perimeter_create_1b](/assets/images/waf/perimeter_create_1b.png)
 
 <br/>
 
-2.- While waiting for your developers to correct the code and enforce access control, you will mitigate the vulnerability using AWS WAF. Go to AWS WAF Console and create a new String match condition with the below filter settings.
+
+2.- Create a new String match condition with the below filter settings.
 
 ![perimeter_create_2a](/assets/images/waf/perimeter_create_2a.png)
 
@@ -29,6 +48,11 @@ In this section, you will use AWS WAF to mitigate a vulnerability caused by weak
 ![perimeter_create_2b](/assets/images/waf/perimeter_create_2b.png)
 
 <br/>
+
+![perimeter_create_2c](/assets/images/waf/perimeter_create_2c.png)
+
+<br/>
+
 
 3.- Create another filter in the same condition with the following filter.
 
