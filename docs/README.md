@@ -14,13 +14,13 @@ You must complete the following modules in **US East (N. Virginia)**.
 
 ## Content
 
-* [Amazon CloudFront](/Cloudfront/) 
+* [Amazon CloudFront](/CloudFront/) 
 * [AWS Lambda@Edge](/LambdaAtEdge/)
 * [Amazon S3 Transfer Acceleration](/S3-TransferAcceleration/) 
 * [AWS WAF](/WAF/)
 [//]: <> ( * [AWS Shield](/Shield/))
   
-* [More AWS Resources](/MoreResoures/) 
+* [More AWS Resources](/MoreResources/) 
 
 
 <br/><br/>

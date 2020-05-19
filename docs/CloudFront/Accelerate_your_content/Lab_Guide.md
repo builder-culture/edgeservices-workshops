@@ -2,8 +2,8 @@
 
 In this section, you will create both S3 and EC2 origin using a provided CloudFormation template.
 
-1.- Go to _CloudFormation_ console in **US East (N. Virginia)** _us-east-1_ region
-.
+1.- Go to _CloudFormation_ console in **US East (N. Virginia)** _us-east-1_ region.
+
 ![accelerate_origin_1a](/assets/images/cloudfront/accelerate_origin_1a.png)
 
 <br/>
@@ -47,9 +47,12 @@ Then, when the launch is completed, go to the _Outputs_ Tab.
 
 ![accelerate_origin_4b](/assets/images/cloudfront/accelerate_origin_4b.png)
 
-During stack launch process, you can check progress via _Events_ Tab and get more details for debugging in case of any problem.
+<br/>
 
-![accelerate_origin_4c](/assets/images/cloudfront/accelerate_origin_4c.png)
+??? tip 
+    During stack launch process, you can check progress via _Events_ Tab and get more details for debugging in case of any problem.
+    
+    ![accelerate_origin_4c](/assets/images/cloudfront/accelerate_origin_4c.png)
 
 <br/>
 
@@ -79,7 +82,8 @@ During stack launch process, you can check progress via _Events_ Tab and get mor
 </html>
 ```
 
-This HTML calls the dynamic content using an iframe tag. Therefore, when a user makes a request for _index.html_, the browser sends a subsequent request to _/api_.
+!!! info 
+    This HTML calls the dynamic content using an iframe tag. Therefore, when a user makes a request for _index.html_, the browser sends a subsequent request to _/api_.
 
 <br/>
 
@@ -89,7 +93,7 @@ This HTML calls the dynamic content using an iframe tag. Therefore, when a user 
 
 <br/>
 
-Find the S3 bucket created by CloudFormation (on step 4) and click on it.
+Find the S3 bucket created by CloudFormation (using the name you have noted on step 4); and click on it.
 
 ![accelerate_origin_6b](/assets/images/cloudfront/accelerate_origin_6b.png)
 
@@ -98,6 +102,10 @@ Find the S3 bucket created by CloudFormation (on step 4) and click on it.
 **Upload** to this S3 bucket the _index.html_ file leaving all settings to default.
 
 ![accelerate_origin_6c](/assets/images/cloudfront/accelerate_origin_6c.png)
+
+<br/>
+
+![accelerate_origin_6d](/assets/images/cloudfront/accelerate_origin_6d.png)
 
 <br/>
 
@@ -119,7 +127,17 @@ The access will be denied since it's not configured as public object.
 
 <br/>
 
-8.- The _CloudFormation template_ has deployed a Node.Js based application that listens to HTTP requests on port 80 of the EC2 instance. Upon receiving a request, the application will send back a json response that includes the headers received in the request. It will also inspect the query string info and return some data from the webserver based on the query string value. The application code is simply the below:
+8.- The _CloudFormation template_ has deployed a Node.Js based application that listens to HTTP requests on port 80 of the EC2 instance. Make sure the application work by going requesting ```http://<EC2_Instance_Public_DNS>/api``` (using the __Public DNS__ you have noted on step 4).  You should see the below screen in your browser. 
+
+![accelerate_origin_8a](/assets/images/cloudfront/accelerate_origin_8a.png)
+
+??? tip 
+    You can obtain _also_ the EC2 Instance _Domain Name_ or **Public DNS** from _EC2_ console.
+
+    ![accelerate_origin_8b](/assets/images/cloudfront/accelerate_origin_8b.png)
+
+
+The node.js application code is simply the below:
 
 ``` javascript
 const express = require('express')
@@ -144,19 +162,21 @@ app.listen(8080, function () {
 })
 ```
 
-Make sure the application work by going requesting ```http://<EC2_Instance_Public_DNS>/api```.  You should see the below screen in your browser. You can obtain and copy the instance **Public DNS** from _EC2_ console.
+!!! info 
+    Upon receiving a request, the application will send back a json response that includes the headers received in the request. It will also inspect the query string info and return some data from the webserver based on the query string value. 
 
-![accelerate_origin_8](/assets/images/cloudfront/accelerate_origin_8.png)
 
 <br/>
 
 ## Create CloudFront Distribution
 
-1.- Go to _CloudFront_ console and create a new distribution. If this is your first time to use CloudFront, click on **Create Distribution** in the Getting Started page. Otherwise, you can **Get Started** with a Web distribution.
+1.- Go to _CloudFront_ console and create a new distribution. If this is your first time to use CloudFront, click on **Create Distribution** in the Getting Started page. 
  
 ![accelerate_distribution_1a](/assets/images/cloudfront/accelerate_distribution_1a.png) 
 
 <br>
+
+Otherwise, you can **Get Started** with a Web distribution.
 
 ![accelerate_distribution_1b](/assets/images/cloudfront/accelerate_distribution_1b.png) 
 
@@ -164,7 +184,7 @@ Make sure the application work by going requesting ```http://<EC2_Instance_Publi
 
 2.- Configure the _Origin Settings_ to the previously created S3 bucket and grant CloudFront the permissions to the bucket using Origin Access Identity settings:
 
-*	Origin Domain Name : ```<Autogenerated_S3_Bucket_Name>```
+*	Origin Domain Name : `<Autogenerated_S3_Bucket_Name>`
 *	Restrict Bucket Access : **Yes**
 *	Origin Access Identity :  **Create a new Identity**
 *	Grant Read Permissions on Bucket : **Yes, Update Bucket policy**
@@ -180,47 +200,52 @@ Make sure the application work by going requesting ```http://<EC2_Instance_Publi
     * Minimum TTL : ```86400```
 *	Compress Objects Automatically : **Yes**
  
-![accelerate_distribution_3](/assets/images/cloudfront/accelerate_distribution_3.png) 
+![accelerate_distribution_3a](/assets/images/cloudfront/accelerate_distribution_3a.png) 
 
 <br/>
 
-4.- Finally, configure root object to _index.html_ and leave the rest to defaults. In this lab, you will be using a domain name provided by CloudFront, however, if you want to use your own domain name, you can configure it with Alternate Domain Names (CNAMEs) section. 
+Configure root object to _index.html_ and leave the rest to defaults. 
 
-Click **Create Distribution**, CloudFront start creating the distribution and normally it takes 10 to 20 mins to fully propagate. To check the status, you need to click on the _Distribution_ menu on left pane. The status of the distribution will be In Progress. 
+!!! info
+    In this lab, you will be using a domain name provided by CloudFront, however, if you want to use your own domain name, you can configure it with Alternate Domain Names (CNAMEs) section.
 
-![accelerate_distribution_4a](/assets/images/cloudfront/accelerate_distribution_4a.png) 
-
-<br/>
-
-![accelerate_distribution_4b](/assets/images/cloudfront/accelerate_distribution_4b.png) 
+![accelerate_distribution_3c](/assets/images/cloudfront/accelerate_distribution_3b.png) 
 
 <br/>
 
-5.- In the _Distributions_ console, click on your Distribution **ID**, then go to _Origins and Origin Groups_ Tab. To create another origin for the _api_, on the _Origins_ section click the **Create Origin** button .
+Click **Create Distribution**, CloudFront start creating the distribution and normally it takes 10 to 20 mins to fully propagate. 
+
+![accelerate_distribution_3c](/assets/images/cloudfront/accelerate_distribution_3c.png) 
+
+<br/>
+
+4.- To check the status, you need to click on the _Distribution_ menu on left pane. The _Status_ of the distribution will be **In Progress**. 
+
+![accelerate_distribution_4](/assets/images/cloudfront/accelerate_distribution_4.png) 
+
+Wait some minutes until its _Status_ changes to **Deployed**
+
+<br/>
+
+5.- In the same CloudFront _Distributions_ console, click on your recently created Distribution **ID**, then go to _Origins and Origin Groups_ Tab. To create another origin for the _api_, on the _Origins_ section click the **Create Origin** button .
  
 ![accelerate_distribution_5](/assets/images/cloudfront/accelerate_distribution_5.png) 
 
 <br/>
 
-6.- Here, you'll need the noted _Public DNS_ from the previously created EC2 instance. (If It's necessary, remember that you can go to _EC2_ console in other tab or window).
-
-![accelerate_distribution_6a](/assets/images/cloudfront/accelerate_distribution_6a.png) 
-
-<br/>
-
-Configure the _Origin Settings_ using EC2 instance domain name (_Public DNS_), and increase keep alive timeout to 60 seconds. Please note that although we want to serve content on HTTPS to users, we want to keep HTTP connection the origin to reduce the TLS overhead on the origin. This is configured by setting the  Origin Protocol Policy to HTTP only as per the below screenshot.
+6.- Configure the _Origin Settings_ using EC2 instance domain name (_Public DNS_), and increase keep alive timeout to 60 seconds. Please note that although we want to serve content on HTTPS to users, we want to keep HTTP connection the origin to reduce the TLS overhead on the origin. This is configured by setting the  Origin Protocol Policy to HTTP only as per the below screenshot.
 
 * Origin Domain Name : ```<EC2_Instance_Public_DNS>```
-* Origin Keep-alive Timeout : ```60```
 * Origin Protocol Policy : **HTTP Only**
- 
-![accelerate_distribution_6b](/assets/images/cloudfront/accelerate_distribution_6b.png) 
+* Origin Keep-alive Timeout : ```60```
 
 Review the configuration, then click on **Create** button.
 
+![accelerate_distribution_6](/assets/images/cloudfront/accelerate_distribution_6.png) 
+
 <br/>
 
-7.- Create a new behaviour for the _api_. Select _Behavior_ tab then click on **Create Behavior** button.
+7.- Create a new behaviour for the _api_. Select _Behaviors_ tab, and then click on **Create Behavior** button.
  
 ![accelerate_distribution_7](/assets/images/cloudfront/accelerate_distribution_7.png) 
 
@@ -228,21 +253,23 @@ Review the configuration, then click on **Create** button.
 
 8.- Configure a second cache behaviour to use the EC2 origin with following parameters to use CloudFront as proxy and bypass any caching layers.
 
-*	Path Pattern : ```/api```
-* Origin or Origin Group : <EC2_Origin>
+*	Path Pattern : `/api`
+* Origin or Origin Group : `<Created_EC2_Custom_Origin>`
 *	Viewer Protocol Policy : **Redirect HTTP to HTTPS**
 *	Cache Based on Selected Headers: **All**
 *	Forward Cookies : **All**
 *	Query String Forwarding and Caching : **Forward all, cache based on all**
 *	Compress Objects Automatically : **Yes**
 
-![accelerate_distribution_8](/assets/images/cloudfront/accelerate_distribution_8.png) 
+![accelerate_distribution_8a](/assets/images/cloudfront/accelerate_distribution_8a.png) 
 
 Review the configuration, then click on **Create** button.
 
+![accelerate_distribution_8b](/assets/images/cloudfront/accelerate_distribution_8b.png) 
+
 <br/>
 
-9.- Check the unique domain name that CloudFront has associated to your distribution in the _General_ tab.
+9.- Check and note the unique **Domain Name** that CloudFront has associated to your distribution in the _General_ tab.
  
 ![accelerate_distribution_9](/assets/images/cloudfront/accelerate_distribution_9.png) 
 
@@ -309,7 +336,7 @@ In this section, you will configure a custom error page for graceful failures if
 
 <br/>
 
-2.- Create _error.html_ file on your computer with the below HTML content (Or <a href="/assets/files/accelerate/error.html" download>click here to download</a>); and upload it to your S3 bucket in the _S3_ console.
+2.- Create _error.html_ file on your computer with the below HTML content (Or <a href="/assets/files/accelerate/error.html" download>click here to download</a>).
 
 ``` html
 <html lang="en">
@@ -320,11 +347,15 @@ In this section, you will configure a custom error page for graceful failures if
 </html>
 ```
 
+<br/>
+
+Go back to your S3 bucket in the _S3_ console, and upload the _error.html_ file to it.
+
 ![accelerate_errorpage_2](/assets/images/cloudfront/accelerate_errorpage_2.png) 
 
 <br/>
 
-3.- In _CloudFront_ console, go to Error Pages tab and click Create Custom Error Response button.
+3.- In _CloudFront_ console, on your same CloudFront _Distribution, _go to _Error Pages_ Tab and click **Create Custom Error Response** button.
  
 ![accelerate_errorpage_3](/assets/images/cloudfront/accelerate_errorpage_3.png) 
 
@@ -333,9 +364,9 @@ In this section, you will configure a custom error page for graceful failures if
 4.- Configure custom error response with the following settings.
 
 *	HTTP Error Code : **403 Forbidden**
-*	Error Cacching Minimum TTL (seconds) : ```60```
+*	Error Cacching Minimum TTL (seconds) : `60`
 *	Customize Error Response : **Yes**
-*	Response Error Response : ```/error.html```
+*	Response Error Response : `/error.html`
 *	HTTP Response Code : **200 OK**
  
 Review the configuration, then click on **Create** button.
@@ -353,9 +384,9 @@ Review the configuration, then click on **Create** button.
 6.- Create another custom error page that will be triggered when the origin is not reachable by CloudFront. Use the following settings:
 
 *	HTTP Error Code : **504 Gateway Timeout**
-*	Error Caching Minimum TTL (seconds) : ```5```
+*	Error Caching Minimum TTL (seconds) : `5`
 *	Customize Error Response : **Yes**
-*	Response Error Response : ```/error.html```
+*	Response Error Response : `/error.html`
 *	HTTP Response Code : **200 OK**
  
 ![accelerate_errorpage_6](/assets/images/cloudfront/accelerate_errorpage_6.png) 
