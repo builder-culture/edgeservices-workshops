@@ -193,7 +193,7 @@ Otherwise, you can **Get Started** with a Web distribution.
 
 <br/>
 
-3.- Configure the _Default Cache Behavior Settings_ to below
+3.- Configure the _Default Cache Behavior Settings_ to below.
 
 *	Viewer Protocol Policy : **Redirect HTTP to HTTPS**
 *	Object Caching : **Customize** 
@@ -381,43 +381,7 @@ Review the configuration, then click on **Create** button.
 
 <br/>
 
-6.- Create another custom error page that will be triggered when the origin is not reachable by CloudFront. Use the following settings:
 
-*	HTTP Error Code : **504 Gateway Timeout**
-*	Error Caching Minimum TTL (seconds) : `5`
-*	Customize Error Response : **Yes**
-*	Response Error Response : `/error.html`
-*	HTTP Response Code : **200 OK**
- 
-![accelerate_errorpage_6](/assets/images/cloudfront/accelerate_errorpage_6.png) 
-
-Review the configuration, then click on **Create** button.
-
-<br/>
-
-7.- Go to the _EC2_ console. 
-
-![accelerate_errorpage_7a](/assets/images/cloudfront/accelerate_errorpage_7a.png) 
-
-<br/>
-
-Find the _running instance_ which is hosting the Nodejs api.
-
-![accelerate_errorpage_7b](/assets/images/cloudfront/accelerate_errorpage_7b.png) 
-
-<br/>
-
-**Stop** the EC2 instance.
-
-![accelerate_errorpage_7c](/assets/images/cloudfront/accelerate_errorpage_7c.png) 
-
-<br/>
-
-8.- Test again your index.html and wait until the API call fails gracefully to the custom error page.
-
-![accelerate_errorpage_8](/assets/images/cloudfront/accelerate_errorpage_8.png)  
-
-<br/>
 
 ## Conclusion
 

@@ -2,14 +2,27 @@
 
 In this section, you will configure an origin group to provide rerouting during a failover event. You can associate an origin group with a cache behavior to have requests routed from a primary origin to a secondary origin for failover.
 
-1.- In _S3_ console, create a new S3 bucket in another region **US West (N. California)** _us-west-1_ and 
+1.- Go to the _S3_ console, and click on **Create bucket**.
+
 ![accelerate_origingroup_1a](/assets/images/cloudfront/accelerate_origingroup_1a.png) 
 
 <br/>
+On _General Configuration_:
+
+* Enter a _Bucket name_
+* Select the  **US West (N. California)** _us-west-1_ region 
+
+On _Bucket settings for Block Public Access_:
+
+* Uncheck **Block all public access**. 
+* Check **I acknowledge that...** 
+ 
+And click **Create bucket**.
 
 ![accelerate_origingroup_1b](/assets/images/cloudfront/accelerate_origingroup_1b.png)  
 
-For _Bucket settings for Block Public Access_, uncheck **Block all public access**. Validate the configurations, check **I acknowledge...** and click **Create bucket**.
+
+Go to _Properties_ Tab of this recently created bucket and select **Static Web Hosting**.
 
 ![accelerate_origingroup_1c](/assets/images/cloudfront/accelerate_origingroup_1c.png) 
 
@@ -17,13 +30,16 @@ For _Bucket settings for Block Public Access_, uncheck **Block all public access
 
 Set static website hosting for this. This bucket will serve as a secondary and custom origin.
 
+On _Static Web Hosting_:
+
+* Index document : `new-index.html`
+
+Cick on the **Save** button.
+
 ![accelerate_origingroup_1d](/assets/images/cloudfront/accelerate_origingroup_1d.png)  
 
 <br/>
 
-![accelerate_origingroup_1e](/assets/images/cloudfront/accelerate_origingroup_1e.png) 
-
-<br/>
 
 2.- Create _new-index.html_ file on your computer with the below HTML content (or <a href="/assets/files/accelerate/new-index.html" download>click here to download</a>.); and upload it to your new S3 bucket in **US West (N. California)** _us-west-1_ from the _S3_ console. Make the _new-index.html_ public read.
 
@@ -51,9 +67,9 @@ Set static website hosting for this. This bucket will serve as a secondary and c
 
 <br/>
 
-![accelerate_origingroup_3b](/assets/images/cloudfront/accelerate_origingroup_3b.png) 
-
 Review the configuration, then click on **Create** button.
+
+![accelerate_origingroup_3b](/assets/images/cloudfront/accelerate_origingroup_3b.png) 
 
 <br/>
 
@@ -61,9 +77,20 @@ Review the configuration, then click on **Create** button.
  
 ![accelerate_origingroup_4a](/assets/images/cloudfront/accelerate_origingroup_4a.png) 
 
-Use your _S3-cloudfrontlab-s3bucket_ as primary origin, and your _S3-cloudfrontlab-s3bucket-secondary_ as secondary origin.
-For failover criteria, choose **404 Not Found** and **403 Forbidden**.
- 
+<br/>
+
+On _Origins_ section:
+
+* select your <S3-cloudfrontlab-s3bucket> as primary origin;and click **Add**
+* then, select your _S3-cloudfrontlab-s3bucket-secondary_ as secondary origin; and click **Add**
+
+You will see an updated list of _Origin ID_s ordered by _Priority_.
+
+On _For failover criteria_ section:
+
+* check **404 Not Found** 
+* check **403 Forbidden**
+
 ![accelerate_origingroup_4b](/assets/images/cloudfront/accelerate_origingroup_4b.png) 
 
 <br/>
@@ -72,11 +99,13 @@ For failover criteria, choose **404 Not Found** and **403 Forbidden**.
 
 ![accelerate_origingroup_5a](/assets/images/cloudfront/accelerate_origingroup_5a.png) 
 
+<br/>
+
 Edit the behavior _Origin or Origin Group_ setting to use the _Origin Group_ we created in previous step.
- 
-![accelerate_origingroup_5b](/assets/images/cloudfront/accelerate_origingroup_5b.png) 
 
 Review your options, then click **Yes, Edit**.
+
+![accelerate_origingroup_5b](/assets/images/cloudfront/accelerate_origingroup_5b.png) 
 
 <br/>
 
