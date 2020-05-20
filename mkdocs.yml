@@ -1,4 +1,4 @@
-site_name: AWS Edge Services Workshops (Labs)
+site_name: AWS Edge Services Workshops 
 site_description: 'A collection of AWS Edge Services Labs that allow diferent workshops'
 site_url: 'https://edgeservices-workshops.builder-culture.com'
 
@@ -6,7 +6,9 @@ site_url: 'https://edgeservices-workshops.builder-culture.com'
 repo_name: 'builder-culture/edgeservices-workshops'
 repo_url: 'https://github.com/builder-culture/edgeservices-workshops'
 
-google_analytics: ['UA-166774903-1', 'edgeservices-workshops.builder-culture.com']
+google_analytics: 
+    - 'UA-166774903-1'
+    - auto 
 
 # Copyright
 copyright: '&copy; 2020, Amazon Web Services, Inc. or its affiliates. All rights reserved.'
@@ -19,12 +21,16 @@ copyright: '&copy; 2020, Amazon Web Services, Inc. or its affiliates. All rights
 #use_directory_urls: false
 plugins:
     - search:
+        separator: '[\s\-\.]+'
         lang:
             - en
             - es
             - pt
-    #- minify:
-    #    minify_html: true
+            - de
+    - minify:
+        minify_html: true
+    - git-revision-date-localized:
+        type: date   
 
 markdown_extensions:
     - admonition
@@ -51,6 +57,7 @@ theme:
         logo: fontawesome/brands/aws
     features:
         - tabs
+        - instant
     language: en
     favicon: assets/images/favicon.ico
     highlights: true

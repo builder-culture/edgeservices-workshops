@@ -8,6 +8,9 @@ phases:
       - pip install --upgrade awscli
       - pip install mkdocs
       - pip install mkdocs-material
+      - pip install mkdocs-minify-plugin
+      - pip install mkdocs-git-revision-date-localized-plugin
+      - pip install mkdocs-awesome-pages-plugin
   pre_build:
     commands:
       # Discover and run unit tests in the 'tests' directory

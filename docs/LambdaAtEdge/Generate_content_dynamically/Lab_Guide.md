@@ -14,11 +14,11 @@ In this section you will create a new cache behavior in the CloudFront distribut
 *	Origin : _<Select the **EC2 origin** created in Accelerate your content lab\>_
 *	Cache Based on Selected Request Headers : **All**
 
+And then click on **Create** button.
+
 ![generate_cache_2](/assets/images/lambda-at-edge/generate_cache_2.png)
 
 <br/>
-
-And then click on **Create** button.
 
 ## Create a Lambda@Edge function
 
@@ -214,8 +214,7 @@ Notice that the output is a JSON representation of the HTTP 200 response that Cl
 
 <br/>
 
-8.- Replace the comment with the code needed to generate the html body. You can use console.log to output to troubleshoot your code. 
-Hidden solution:
+8.- Replace the comment with the code needed to generate the html body. You can use console.log to output to troubleshoot your code. The complete solution is the following:
 
 ``` javascript
 exports.handler= (event, context, callback) => {
