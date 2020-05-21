@@ -28,9 +28,12 @@ plugins:
             - pt
             - de
     - minify:
-        minify_html: true
-    - git-revision-date-localized:
-        type: date   
+        minify_html: true   
+    ## Requirements
+    ## The date is extracted at the time of the build, 
+    ## so mkdocs build must be triggered from within a git repository.    
+    #- git-revision-date-localized:
+    #    type: date   
 
 markdown_extensions:
     - admonition
