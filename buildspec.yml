@@ -19,7 +19,7 @@ phases:
       # Build
       - mkdocs --version
       - pip show mkdocs-material
-      - mkdocs build --vervose
+      - mkdocs build --verbose
   post_build:
     commands:
       # Post Build
